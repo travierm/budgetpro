@@ -1,69 +1,8 @@
-<script setup>
-import { computed, ref } from 'vue'
-import { TrashIcon } from '@heroicons/vue/24/outline'
-
-const props = defineProps({
-    name: {
-        type: String,
-        required: true
-    },
-    gradientFrom: {
-        type: String,
-        default: 'from-blue-600'
-    },
-    gradientTo: {
-        type: String,
-        default: 'to-blue-800'
-    }
-})
-
-const keyHeaderText = ref('Name')
-const valueHeaderText = ref('Cost')
-
-const rows = ref([
-    {
-        key: 'Rent',
-        value: 600
-    },
-    {
-        key: 'Food',
-        value: 100
-    },
-    {
-        key: 'Transportation',
-        value: 200
-    }
-])
-
-const keyInput = ref(null)
-const valueInput = ref(null)
-
-const total = computed(() => {
-    return rows.value.reduce((total, row) => {
-        return total + row.value
-    }, 0)
-})
-
-function addRow() {
-    rows.value.push({
-        key: keyInput.value.value,
-        value: parseInt(valueInput.value.value)
-    })
-
-    keyInput.value.value = ''
-    valueInput.value.value = ''
-}
-
-function deleteRow(index) {
-    rows.value.splice(index, 1)
-}
-</script>
-
 <template>
     <div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <div :class="`bg-gradient-to-r p-2 ${gradientFrom} ${gradientTo}`">
-                <h1 class="text-xl font-bold text-slate-200">{{ props.name }}</h1>
+                <h1 class="text-xl font-bold text-slate-200">{{ name }}</h1>
             </div>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -75,12 +14,11 @@ function deleteRow(index) {
                 </thead>
 
                 <tbody>
-                    <tr v-for="(row, index) in rows" :key="index"
+                    <tr v-for="(row, index) in modelValue" :key="index"
                         class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                         <td class="px-4 py-4">
                             {{ row.key }}
                         </td>
-
                         <td class="px-4 py-4">
                             ${{ row.value }}
                         </td>
@@ -94,12 +32,12 @@ function deleteRow(index) {
 
                     <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800">
                         <td class="px-4 py-3">
-                            <input ref="keyInput" type="text"
+                            <input v-model="keyInput" type="text"
                                 class="bg-transparent text-gray-900 text-sm focus:ring-blue-500 focus:outline-none block w-full px-0 dark:placeholder-gray-400 dark:text-white"
                                 :placeholder="keyHeaderText">
                         </td>
                         <td class="px-4 py-3">
-                            <input @keyup.enter="addRow" ref="valueInput" type="text"
+                            <input v-model="valueInput" @keyup.enter="addRow" type="text"
                                 class="bg-transparent text-gray-900 text-sm focus:ring-blue-500 focus:outline-none block w-full px-0 dark:placeholder-gray-400 dark:text-white"
                                 :placeholder="valueHeaderText">
                         </td>
@@ -111,7 +49,7 @@ function deleteRow(index) {
                         </td>
                     </tr>
                 </tbody>
-                <tfoot v-if="rows.length > 0">
+                <tfoot v-if="modelValue.length > 0">
                     <tr class="text-xs font-semibold text-white bg-gray-500"
                         :class="`bg-gradient-to-r ${gradientFrom} ${gradientTo}`">
                         <th scope="row" class="px-4 py-3">Total</th>
@@ -123,3 +61,64 @@ function deleteRow(index) {
         </div>
     </div>
 </template>
+
+<script>
+import { TrashIcon } from '@heroicons/vue/24/outline'
+
+export default {
+    name: 'TableInput',
+    components: {
+        TrashIcon
+    },
+    props: {
+        name: {
+            type: String,
+            required: true
+        },
+        modelValue: {
+            type: Array,
+            required: true
+        },
+        gradientFrom: {
+            type: String,
+            default: 'from-blue-600'
+        },
+        gradientTo: {
+            type: String,
+            default: 'to-blue-800'
+        }
+    },
+    emits: ['update:modelValue'],
+    data() {
+        return {
+            keyHeaderText: 'Name',
+            valueHeaderText: 'Cost',
+            keyInput: '',
+            valueInput: ''
+        }
+    },
+    computed: {
+        total() {
+            return this.modelValue.reduce((total, row) => total + row.value, 0)
+        }
+    },
+    methods: {
+        addRow() {
+            if (this.keyInput && this.valueInput) {
+                this.$emit('update:modelValue', [
+                    ...this.modelValue,
+                    {
+                        key: this.keyInput,
+                        value: parseInt(this.valueInput)
+                    }
+                ])
+                this.keyInput = ''
+                this.valueInput = ''
+            }
+        },
+        deleteRow(index) {
+            this.$emit('update:modelValue', this.modelValue.filter((_, i) => i !== index))
+        }
+    }
+}
+</script>
