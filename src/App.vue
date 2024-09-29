@@ -4,7 +4,7 @@ import MainPage from './pages/MainPage.vue';
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto">
+  <div class="mx-[150px]">
     <h1 class="text-4xl font-bold text-center my-4 gradient-title">BudgetPro</h1>
     <div>
       <MainPage />

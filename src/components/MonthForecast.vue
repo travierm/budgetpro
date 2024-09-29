@@ -1,10 +1,10 @@
 <template>
     <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
         <div class="flex flex-wrap gap-4">
-            <div v-for="(month, index) in months" :key="month"
+            <div v-for="(monthYear, index) in monthsWithYears" :key="monthYear.month + monthYear.year"
                 class="flex-1 min-w-[150px] rounded-lg p-2 flex flex-col items-center justify-between"
-                :class="getMonthGradient(month)">
-                <div class="font-medium mb-2 text-gray-800">{{ month }}</div>
+                :class="getMonthGradient(monthYear.month)">
+                <div class="font-medium mb-2 text-gray-800">{{ monthYear.month }} {{ monthYear.year }}</div>
                 <div class="font-bold text-lg text-gray-900">{{ formatCurrency(balances[index]) }}</div>
             </div>
         </div>
@@ -15,11 +15,20 @@
 import { computed } from 'vue';
 import { income, expenses, accountBalances } from '../lib/appData';
 
-const getNextMonths = (count) => {
+const getNextMonthsWithYears = (count) => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
-    return Array.from({ length: count + 1 }, (_, i) => months[(currentMonth + i) % 12]);
+    const currentYear = currentDate.getFullYear();
+
+    return Array.from({ length: count + 1 }, (_, i) => {
+        const monthIndex = (currentMonth + i) % 12;
+        const yearOffset = Math.floor((currentMonth + i) / 12);
+        return {
+            month: months[monthIndex],
+            year: currentYear + yearOffset
+        };
+    });
 };
 
 const calculateProjectedBalances = computed(() => {
@@ -72,6 +81,6 @@ const getMonthGradient = (month) => {
     return gradients[month] || 'bg-gradient-to-br from-gray-600 to-gray-700';
 };
 
-const months = getNextMonths(9);
+const monthsWithYears = getNextMonthsWithYears(9);
 const balances = calculateProjectedBalances;
 </script>
