@@ -16,6 +16,6 @@ const accountBalances = syncedRef('app.accountBalances', [])
             gradient-to="to-green-800" />
 
         <TableInput v-model="accountBalances" name="Account Balances" class="max-w-2xl mx-auto"
-            gradient-from="from-blue-600" gradient-to="to-blue-800" />
+            gradient-from="from-indigo-600" gradient-to="to-indigo-800" key-text="Account" value-text="Balance" />
     </div>
 </template>

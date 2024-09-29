@@ -7,8 +7,8 @@
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-4 py-2">{{ keyHeaderText }}</th>
-                        <th scope="col" class="px-4 py-2">{{ valueHeaderText }}</th>
+                        <th scope="col" class="px-4 py-2">{{ keyText }}</th>
+                        <th scope="col" class="px-4 py-2">{{ valueText }}</th>
                         <th scope="col" class="px-4 py-2"></th>
                     </tr>
                 </thead>
@@ -34,12 +34,12 @@
                         <td class="px-4 py-2">
                             <input v-model="keyInput" type="text"
                                 class="bg-transparent text-gray-900 text-sm focus:ring-blue-500 focus:outline-none block w-full px-0 dark:placeholder-gray-400 dark:text-white"
-                                :placeholder="keyHeaderText">
+                                :placeholder="keyText">
                         </td>
                         <td class="px-4 py-2">
                             <input v-model="valueInput" @keyup.enter="addRow" type="text"
                                 class="bg-transparent text-gray-900 text-sm focus:ring-blue-500 focus:outline-none block w-full px-0 dark:placeholder-gray-400 dark:text-white"
-                                :placeholder="valueHeaderText">
+                                :placeholder="valueText">
                         </td>
                         <td class="px-4 py-2 flex items-center justify-center h-full">
                             <button @click="addRow()"
@@ -80,6 +80,14 @@ export default {
             type: Array,
             required: true
         },
+        keyText: {
+            type: String,
+            default: 'Name'
+        },
+        valueText: {
+            type: String,
+            default: 'Cost'
+        },
         gradientFrom: {
             type: String,
             default: 'from-blue-600'
@@ -92,8 +100,6 @@ export default {
     emits: ['update:modelValue'],
     data() {
         return {
-            keyHeaderText: 'Name',
-            valueHeaderText: 'Cost',
             keyInput: '',
             valueInput: ''
         }
