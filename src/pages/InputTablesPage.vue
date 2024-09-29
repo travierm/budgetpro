@@ -1,6 +1,7 @@
 <script setup>
 import TableInput from '../components/TableInput.vue';
 import QuickStats from '../components/QuickStats.vue';
+import ForecastPage from '../pages/ForcastPage.vue';
 
 import { income, expenses, accountBalances } from '../lib/appData';
 </script>
@@ -19,5 +20,9 @@ import { income, expenses, accountBalances } from '../lib/appData';
 
     <div class="mt-6">
         <QuickStats />
+    </div>
+
+    <div class="mt-6">
+        <ForecastPage />
     </div>
 </template>

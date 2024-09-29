@@ -1,11 +1,12 @@
 <template>
-    <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
-        <h2 class="text-xl font-bold text-white mb-4">6 Month Forecast</h2>
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-bold text-white mb-4">Projected Balance</h2>
         <div class="flex flex-wrap gap-4">
             <div v-for="(month, index) in months" :key="month"
-                class="flex-1 min-w-[150px] bg-gray-700 rounded-lg p-2 flex flex-col items-center justify-between">
-                <div class="text-gray-400 font-medium mb-2">{{ month }}</div>
-                <div class="text-white font-bold text-md">{{ formatCurrency(balances[index]) }}</div>
+                class="flex-1 min-w-[150px] rounded-lg p-4 flex flex-col items-center justify-between"
+                :class="getMonthGradient(month)">
+                <div class="font-medium mb-2 text-gray-800">{{ month }}</div>
+                <div class="font-bold text-lg text-gray-900">{{ formatCurrency(balances[index]) }}</div>
             </div>
         </div>
     </div>
@@ -30,7 +31,7 @@ const calculateProjectedBalances = computed(() => {
     const avgExpenses = expenses.value.reduce((sum, month) => sum + month.value, 0) / expenses.value.length;
     const avgNetProfit = avgIncome - avgExpenses;
 
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 12; i++) {
         currentBalance += avgNetProfit;
         balances.push(currentBalance);
     }
@@ -47,6 +48,31 @@ const formatCurrency = (value) => {
     }).format(value);
 };
 
-const months = getNextMonths(6);
+const getMonthGradient = (month) => {
+    const gradients = {
+        // Winter (cool blues and cyans)
+        'Dec': 'bg-gradient-to-br from-sky-500 to-blue-600',
+        'Jan': 'bg-gradient-to-br from-cyan-600 to-blue-700',
+        'Feb': 'bg-gradient-to-br from-blue-500 to-cyan-600',
+
+        // Spring (fresh greens and teals)
+        'Mar': 'bg-gradient-to-br from-emerald-500 to-teal-600',
+        'Apr': 'bg-gradient-to-br from-green-500 to-teal-600',
+        'May': 'bg-gradient-to-br from-lime-500 to-green-600',
+
+        // Summer (vibrant blues and greens)
+        'Jun': 'bg-gradient-to-br from-green-400 to-teal-500',
+        'Jul': 'bg-gradient-to-br from-sky-400 to-blue-500',
+        'Aug': 'bg-gradient-to-br from-blue-400 to-indigo-500',
+
+        // Fall (warm reds, oranges, and golds)
+        'Sep': 'bg-gradient-to-br from-yellow-500 to-orange-600',
+        'Oct': 'bg-gradient-to-br from-orange-500 to-red-600',
+        'Nov': 'bg-gradient-to-br from-amber-500 to-rose-500'
+    };
+    return gradients[month] || 'bg-gradient-to-br from-gray-600 to-gray-700';
+};
+
+const months = getNextMonths(9);
 const balances = calculateProjectedBalances;
 </script>

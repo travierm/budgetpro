@@ -1,17 +1,9 @@
 <template>
-    <div class="bg-gradient-to-r from-orange-600 via-green-700 to-indigo-700 shadow-lg rounded-lg p-5">
+    <div class="bg-gray-800 shadow-lg rounded-lg p-5">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
             <div class="flex flex-col items-center">
-                <div class="text-3xl font-extrabold text-white">
-                    {{ savingsRate.toFixed(2) }}%
-                </div>
-                <div class="text-base font-medium text-gray-200 mt-1">
-                    Savings Rate
-                </div>
-            </div>
-            <!-- Placeholder for additional stats -->
-            <div class="flex flex-col items-center">
-                <div class="text-3xl font-extrabold text-white">
+                <div class="text-3xl font-extrabold gradient-text-profit">
                     ${{ netProfit.toFixed(2) }}
                 </div>
                 <div class="text-base font-medium text-gray-200 mt-1">
@@ -19,7 +11,16 @@
                 </div>
             </div>
             <div class="flex flex-col items-center">
-                <div class="text-3xl font-extrabold text-white">
+                <div class="text-3xl font-extrabold gradient-text-savings">
+                    {{ savingsRate.toFixed(2) }}%
+                </div>
+                <div class="text-base font-medium text-gray-200 mt-1">
+                    Savings Rate
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center">
+                <div class="text-3xl font-extrabold gradient-text-runway">
                     {{ financialRunway }} Months
                 </div>
                 <div class="text-base font-medium text-gray-200 mt-1">
@@ -82,7 +83,27 @@ export default {
 </script>
 
 <style scoped>
-.shadow-lg {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+.gradient-text-savings {
+    background: linear-gradient(45deg, #4ade80, #2dd4bf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.gradient-text-profit {
+    background: linear-gradient(45deg, #f59e0b, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.gradient-text-runway {
+    background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 </style>
