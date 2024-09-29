@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { income, expenses, accountBalances } from '../lib/appData';
 
 export default {
@@ -46,7 +46,6 @@ export default {
             return (savings / totalIncome.value) * 100;
         });
 
-        // net profit
         const netProfit = computed(() => totalIncome.value - totalExpenses.value);
 
         const calculateFinancialRunway = (accountBalances, monthlyExpenses) => {
@@ -66,7 +65,6 @@ export default {
             return runway;
         };
 
-        // Usage in a Vue.js computed property
         const financialRunway = computed(() => {
             const runwayMonths = calculateFinancialRunway(accountBalances.value, expenses.value);
             return runwayMonths.toFixed(1); // Round to one decimal place
