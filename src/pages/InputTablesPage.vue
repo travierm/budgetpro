@@ -1,10 +1,8 @@
 <script setup>
 import TableInput from '../components/TableInput.vue';
-import { syncedRef } from '../lib/localStorage';
+import QuickStats from '../components/QuickStats.vue';
 
-const income = syncedRef('app.income', [])
-const expenses = syncedRef('app.expenses', [])
-const accountBalances = syncedRef('app.accountBalances', [])
+import { income, expenses, accountBalances } from '../lib/appData';
 </script>
 
 <template>
@@ -17,5 +15,9 @@ const accountBalances = syncedRef('app.accountBalances', [])
 
         <TableInput v-model="accountBalances" name="Account Balances" class="max-w-2xl mx-auto"
             gradient-from="from-indigo-600" gradient-to="to-indigo-800" key-text="Account" value-text="Balance" />
+    </div>
+
+    <div class="mt-6">
+        <QuickStats />
     </div>
 </template>
