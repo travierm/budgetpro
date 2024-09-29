@@ -1,9 +1,8 @@
 <template>
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 class="text-xl font-bold text-white mb-4">Projected Balance</h2>
+    <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
         <div class="flex flex-wrap gap-4">
             <div v-for="(month, index) in months" :key="month"
-                class="flex-1 min-w-[150px] rounded-lg p-4 flex flex-col items-center justify-between"
+                class="flex-1 min-w-[150px] rounded-lg p-2 flex flex-col items-center justify-between"
                 :class="getMonthGradient(month)">
                 <div class="font-medium mb-2 text-gray-800">{{ month }}</div>
                 <div class="font-bold text-lg text-gray-900">{{ formatCurrency(balances[index]) }}</div>

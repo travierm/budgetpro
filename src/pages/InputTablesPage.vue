@@ -18,11 +18,11 @@ import { income, expenses, accountBalances } from '../lib/appData';
             gradient-from="from-indigo-600" gradient-to="to-indigo-800" key-text="Account" value-text="Balance" />
     </div>
 
-    <div class="mt-6">
+    <div class="mt-4">
         <QuickStats />
     </div>
 
-    <div class="mt-6">
+    <div class="mt-4">
         <ForecastPage />
     </div>
 </template>
