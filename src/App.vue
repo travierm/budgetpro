@@ -1,13 +1,16 @@
 <script setup>
 import { computed } from 'vue';
 import MainPage from './pages/MainPage.vue';
+import Navbar from './components/Navbar.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
   <div class="mx-[150px]">
     <h1 class="text-4xl font-bold text-center my-4 gradient-title">BudgetPro</h1>
     <div>
-      <MainPage />
+      <Navbar />
+      <RouterView />
     </div>
   </div>
 </template>
