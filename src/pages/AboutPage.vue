@@ -1,5 +1,24 @@
 <template>
-    <div class="flex gap-4">
-        <h1 class="text-white text-4xl font-bold">About</h1>
+    <div class="flex gap-4 justify-center p-4">
+        <div class="w-3/4 bg-gray-800 shadow-lg rounded-lg p-4 text-white">
+            <h1 class=" text-2xl font-bold">Great insights with minimal data.</h1>
+            <p class="mt-4 text-md">Most finance tracking apps want to see every transaction you make and then provide
+                you mediocre insights.</p>
+            <p>These apps sell your data or put ads in front of your face while providing a subpar product.</p>
+            <br />
+            <p>BudgetPro keeps it simple. Provide a minimal amount of data, and we can calculate great insights into
+                your
+                finances without ever sending your data to our servers.</p>
+
+            <br />
+            <p>We don't track any actions you make, we don't run analytics and we won't run ads.</p>
+
+            <br />
+            <p>This software is completely open source: <a class="text-blue-400" target="_blank"
+                    href="https://github.com/travierm/budgetpro">BudgetPro</a></p>
+            <br />
+            <p class="text-center">Designed and build by <a target="_blank" class="text-orange-400"
+                    href="https://tecdrip.com">Tecdrip</a></p>
+        </div>
     </div>
 </template>

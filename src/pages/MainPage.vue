@@ -12,13 +12,13 @@ import { income, expenses, accountBalances } from '../lib/appData';
     <div class="flex gap-4">
         <div class="flex flex-col gap-4 w-1/2">
             <div class="grid grid-cols-2 gap-4">
-                <TableInput v-model="income" name="Income" class="flex-grow" gradient-from="from-green-600"
+                <TableInput v-model="income" name="Monthly Income" class="flex-grow" gradient-from="from-green-600"
                     gradient-to="to-green-800" />
                 <TableInput v-model="accountBalances" name="Account Balances" class="flex-grow"
                     gradient-from="from-indigo-600" gradient-to="to-indigo-800" key-text="Account"
                     value-text="Balance" />
             </div>
-            <TableInput v-model="expenses" name="Expenses" class="" gradient-from="from-orange-600"
+            <TableInput v-model="expenses" name="Monthly Expenses" class="" gradient-from="from-orange-600"
                 gradient-to="to-orange-800" />
         </div>
 
