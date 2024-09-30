@@ -3,7 +3,7 @@
         <div
             :class="`bg-gradient-to-r p-2 ${gradientFrom} ${gradientTo} rounded-t-lg flex justify-between items-center`">
             <h1 class="text-md font-bold text-slate-200">{{ name }}</h1>
-            <button @click="addRow" class="text-white hover:text-green-500 transition-colors duration-200">
+            <button @click="addRow" class="text-white hover:text-green-400 transition-colors duration-200">
                 <PlusCircleIcon class="w-6 h-6" aria-hidden="true" />
             </button>
         </div>
