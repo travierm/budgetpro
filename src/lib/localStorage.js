@@ -10,7 +10,6 @@ export const setJson = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value))
 }
 
-
 function getAppData(revision = 1) {
     const appData = getJson(LOCAL_STORAGE_KEY + revision)
     if (!appData) {
@@ -50,24 +49,3 @@ export function syncedRef(key, defaultValue, revision = 1) {
 
     return reference
 }
-
-// export function syncedRef(key, defaultValue) {
-//     const variable = ref()
-
-//     const storedData = getJson(key)
-//     if (storedData) {
-//         variable.value = storedData
-//     } else {
-//         variable.value = defaultValue
-//     }
-
-//     watch(
-//         variable,
-//         (newValue) => {
-//             localStorage.setItem(key, JSON.stringify(newValue))
-//         },
-//         { deep: true }
-//     )
-
-//     return variable
-// }
