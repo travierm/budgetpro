@@ -9,7 +9,7 @@
         </div>
         <div class="max-h-[250px] overflow-y-auto relative" ref="tableContainer" @scroll="handleScroll">
             <table class="w-full text-sm text-left rtl:text-right text-gray-300 dark:text-gray-300">
-                <thead
+                <thead v-if="modelValue.length > 0"
                     class="sticky top-0 z-10 text-xs text-gray-300 uppercase bg-gray-800 dark:bg-gray-800 dark:text-gray-300">
                     <tr>
                         <th scope="col" class="px-4 py-2">{{ keyText }}</th>
@@ -59,7 +59,6 @@ import { PlusCircleIcon, TrashIcon, ChevronDownIcon } from '@heroicons/vue/24/ou
 import { ref, onMounted, onUpdated } from 'vue'
 import { formatCurrency } from '../lib/useFormatCurrency';
 import CurrencyInput from './CurrencyInput.vue';
-
 
 export default {
     name: 'TableInput',

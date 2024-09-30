@@ -3,7 +3,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="flex flex-col items-center">
-                <div class="text-2xl font-extrabold gradient-text-profit">
+                <div class="text-xl font-extrabold gradient-text-profit">
                     ${{ netProfit.toFixed(2) }}
                 </div>
                 <div class="text-base font-medium text-gray-200 mt-1">
@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="flex flex-col items-center">
-                <div class="text-2xl font-extrabold gradient-text-savings">
+                <div class="text-xl font-extrabold gradient-text-savings">
                     {{ savingsRate.toFixed(2) }}%
                 </div>
                 <div class="text-base font-medium text-gray-200 mt-1">
@@ -20,7 +20,7 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="text-2xl font-extrabold gradient-text-runway">
+                <div class="text-xl font-extrabold gradient-text-runway">
                     {{ financialRunway }} Months
                 </div>
                 <div class="text-base font-medium text-gray-200 mt-1">
@@ -38,8 +38,8 @@ import { income, expenses, accountBalances } from '../lib/appData';
 export default {
     name: 'QuickStats',
     setup() {
-        const totalIncome = computed(() => income.value.reduce((total, row) => total + row.value, 0));
-        const totalExpenses = computed(() => expenses.value.reduce((total, row) => total + row.value, 0));
+        const totalIncome = computed(() => income.value.filter(month => month.value !== '').reduce((total, row) => total + parseFloat(row.value), 0));
+        const totalExpenses = computed(() => expenses.value.filter(month => month.value !== '').reduce((total, row) => total + parseFloat(row.value), 0));
         const savingsRate = computed(() => {
             if (totalIncome.value === 0) return 0; // Avoid division by zero
 
@@ -68,6 +68,7 @@ export default {
 
         const financialRunway = computed(() => {
             const runwayMonths = calculateFinancialRunway(accountBalances.value, expenses.value);
+
             return runwayMonths.toFixed(1); // Round to one decimal place
         });
 

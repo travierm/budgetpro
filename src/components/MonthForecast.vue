@@ -32,18 +32,24 @@ const getNextMonthsWithYears = (count) => {
 };
 
 const calculateProjectedBalances = computed(() => {
-    let currentBalance = accountBalances.value.reduce((sum, account) => sum + account.value, 0);
+    let currentBalance = parseFloat(accountBalances.value.reduce((sum, account) => sum + account.value, 0));
     const balances = [currentBalance];
 
-    console.log(currentBalance)
 
-    const avgIncome = income.value.reduce((sum, month) => sum + month.value, 0) / income.value.length;
-    const avgExpenses = expenses.value.reduce((sum, month) => sum + month.value, 0) / expenses.value.length;
+    const avgIncome = income.value.length > 0 ?
+        income.value.filter(month => month.value !== '').reduce((sum, month) => sum + parseFloat(month.value), 0) / income.value.length : 0;
+
+    const avgExpenses = expenses.value.length > 0 ?
+        expenses.value.filter(month => month.value !== '').reduce((sum, month) => sum + parseFloat(month.value), 0) / expenses.value.length : 0;
+
     const avgNetProfit = avgIncome - avgExpenses;
 
-    console.log(avgNetProfit);
-
     for (let i = 1; i <= 12; i++) {
+        if (avgNetProfit <= 0) {
+            balances.push(currentBalance);
+            continue
+        }
+
         currentBalance += avgNetProfit;
         balances.push(currentBalance);
     }
