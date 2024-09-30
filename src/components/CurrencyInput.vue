@@ -40,7 +40,7 @@ export default {
             value = parseFloat(value)
             if (isNaN(value)) value = 0
             inputValue.value = value
-            emit('update:modelValue', value)
+            emit('update:modelValue', parseFloat(value))
         }
 
         const formatOnBlur = () => {

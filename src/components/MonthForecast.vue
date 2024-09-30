@@ -35,9 +35,13 @@ const calculateProjectedBalances = computed(() => {
     let currentBalance = accountBalances.value.reduce((sum, account) => sum + account.value, 0);
     const balances = [currentBalance];
 
+    console.log(currentBalance)
+
     const avgIncome = income.value.reduce((sum, month) => sum + month.value, 0) / income.value.length;
     const avgExpenses = expenses.value.reduce((sum, month) => sum + month.value, 0) / expenses.value.length;
     const avgNetProfit = avgIncome - avgExpenses;
+
+    console.log(avgNetProfit);
 
     for (let i = 1; i <= 12; i++) {
         currentBalance += avgNetProfit;

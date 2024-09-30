@@ -22,6 +22,7 @@ export function syncedRef(key, defaultValue) {
     watch(
         variable,
         (newValue) => {
+            console.log(newValue)
             localStorage.setItem(key, JSON.stringify(newValue))
         },
         { deep: true }
