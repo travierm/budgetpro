@@ -15,6 +15,7 @@ function getAppData(revision = 1) {
     const appData = getJson(LOCAL_STORAGE_KEY + revision)
     if (!appData) {
         setJson(LOCAL_STORAGE_KEY + revision, {})
+        return {}
     }
 
     return appData
