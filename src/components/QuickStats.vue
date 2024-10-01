@@ -1,9 +1,9 @@
 <template>
     <div class="bg-gray-800 shadow-lg rounded-lg p-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
 
             <div class="flex flex-col items-center">
-                <div class="text-xl font-extrabold gradient-text-profit">
+                <div class="text-md md:text-xl font-extrabold gradient-text-profit">
                     ${{ netProfit.toFixed(2) }}
                 </div>
                 <div class="text-base font-medium text-gray-200 mt-1">
@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="flex flex-col items-center">
-                <div class="text-xl font-extrabold gradient-text-savings">
+                <div class="text-md md:text-xl font-extrabold gradient-text-savings">
                     {{ savingsRate.toFixed(2) }}%
                 </div>
                 <div class="text-base font-medium text-gray-200 mt-1">
@@ -20,7 +20,7 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="text-xl font-extrabold gradient-text-runway">
+                <div class="text-md md:text-xl font-extrabold gradient-text-runway">
                     {{ financialRunway }} Months
                 </div>
                 <div class="text-base font-medium text-gray-200 mt-1">

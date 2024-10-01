@@ -6,7 +6,7 @@ import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div class="mx-[150px]">
+  <div class="lg:mx-[150px] mx-[20px] md:mx-[40px]">
     <h1 class="text-4xl font-bold text-center my-4 gradient-title">BudgetPro</h1>
     <div>
       <Navbar />
