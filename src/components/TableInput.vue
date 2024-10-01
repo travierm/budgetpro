@@ -3,7 +3,7 @@
         <div
             :class="`bg-gradient-to-r p-2 ${gradientFrom} ${gradientTo} rounded-t-lg flex justify-between items-center`">
             <h1 class="text-md font-bold text-slate-200">{{ name }}</h1>
-            <button @click="addRow" class="text-white hover:text-green-400 transition-colors duration-200">
+            <button @click="addRow" class="text-white hover:text-green-400 transition-colors duration-200 mr-[5px]">
                 <PlusCircleIcon class="w-6 h-6" aria-hidden="true" />
             </button>
         </div>
@@ -14,7 +14,7 @@
                     <tr>
                         <th scope="col" class="px-4 py-2">{{ keyText }}</th>
                         <th scope="col" class="px-4 py-2">{{ valueText }}</th>
-                        <th scope="col" class="px-4 py-2"></th>
+                        <th scope="col" class="px-4 py-2 w-12"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,7 +27,7 @@
                         <td class="px-4 py-2">
                             <CurrencyInput @keyup.enter="addRow" v-model="row.value" :value-text="valueText" />
                         </td>
-                        <td class="px-4 py-2 flex items-center justify-center h-full">
+                        <td class="px-4 py-2 flex items-center justify-center h-full w-12">
                             <button @click="deleteRow(index)"
                                 class="text-red-400 hover:text-red-300 transition-colors duration-200">
                                 <TrashIcon class="w-5 h-5" aria-hidden="true" />
