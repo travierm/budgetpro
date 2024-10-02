@@ -1,5 +1,12 @@
 import { syncedRef } from './localStorage';
 
+export const getRefsBySlot = (slot) => {
+    return {
+        income: syncedRef('income', [], slot),
+        expenses: syncedRef('expenses', [], slot),
+        accountBalances: syncedRef('accountBalances', [], slot)
+    }
+}
 
 export const income = syncedRef('income', [
     {
