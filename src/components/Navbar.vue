@@ -1,7 +1,7 @@
 <script setup>
-import { ChartBarIcon, CircleStackIcon, CpuChipIcon, InformationCircleIcon } from '@heroicons/vue/24/outline';
+import { CircleStackIcon, CpuChipIcon, InformationCircleIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
-import { RouterView, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const route = useRoute()
 
