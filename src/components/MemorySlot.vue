@@ -24,7 +24,7 @@
 
 <script setup>
 import { TrashIcon } from '@heroicons/vue/24/outline'
-import { deleteRevision, useReactiveState } from '../lib/localStorage';
+import { currentRevision, deleteRevision, useReactiveState } from '../lib/localStorage';
 import { formatCurrency } from '../lib/useFormatCurrency';
 
 const props = defineProps({
@@ -39,6 +39,6 @@ function calculateTotal(rows) {
 }
 
 function setCurrentRevision(slot) {
-    CURRENT_REVISION.value = slot
+    currentRevision.value = slot
 }
 </script>

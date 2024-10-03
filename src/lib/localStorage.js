@@ -1,4 +1,4 @@
-import { ref, watch, computed } from "vue"
+import { ref, watch, computed, toRaw } from "vue"
 
 const LOCAL_STORAGE_KEY = 'app_state'
 
@@ -42,12 +42,22 @@ export function getAppState() {
 export function createRevision() {
     const CURRENT_REVISION = state.value.CURRENT_REVISION ?? 0
 
-    state.value.revisions.push(state.value.revisions[CURRENT_REVISION])
+    const currentRevision = toRaw(state.value.revisions[CURRENT_REVISION])
+    state.value.revisions.push(JSON.parse(JSON.stringify(currentRevision)))
 }
 
 export function deleteRevision(index) {
     state.value.revisions.splice(index, 1)
 }
+
+export const currentRevision = computed({
+    get: () => state.value.CURRENT_REVISION,
+    set: (newValue) => {
+        if (newValue >= 0 && newValue < state.value.revisions.length) {
+            state.value.CURRENT_REVISION = newValue
+        }
+    }
+})
 
 export function useReactiveState(path, defaultValue) {
     const value = computed({
@@ -77,7 +87,7 @@ export function useReactiveRevisionState(key, defaultValue) {
 
     return computed({
         get: () => {
-            const currentRevision = CURRENT_REVISION
+            const currentRevision = state.value.CURRENT_REVISION
             if (!state.value.revisions[currentRevision]) {
                 state.value.revisions[currentRevision] = {}
             }
@@ -89,13 +99,13 @@ export function useReactiveRevisionState(key, defaultValue) {
             return result !== undefined ? result : defaultValue
         },
         set: (newValue) => {
-            const currentRevision = CURRENT_REVISION
+            const currentRevision = state.value.CURRENT_REVISION
             if (!state.value.revisions[currentRevision]) {
                 state.value.revisions[currentRevision] = {}
             }
             state.value.revisions[currentRevision][key] = newValue
 
-            console.log(state.value)
+            console.log('updating revision state', key, newValue, currentRevision)
         }
     })
 }
