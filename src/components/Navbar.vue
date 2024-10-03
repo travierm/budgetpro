@@ -1,13 +1,14 @@
 <script setup>
-import { ChartBarIcon, CircleStackIcon, InformationCircleIcon } from '@heroicons/vue/24/outline';
+import { CircleStackIcon, CpuChipIcon, InformationCircleIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
-import { RouterView, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 const route = useRoute()
 
 const isActive = computed(() => ({
     data: route.path === '/',
     about: route.path === '/about',
+    memory: route.path === '/memory',
     forecast: route.path === '/forecast',
 }))
 </script>
@@ -21,6 +22,16 @@ const isActive = computed(() => ({
                 <CircleStackIcon class="w-5 h-5 transition-colors duration-300 text-white group-hover:text-indigo-500"
                     :class="{ 'text-indigo-500': isActive.data }" aria-hidden="true" />
                 <span>Dashboard</span>
+            </button>
+        </router-link>
+
+        <router-link to="/memory" custom v-slot="{ navigate }">
+            <button @click="navigate"
+                class="px-4 py-1 text-gray-300 bg-transparent border border-gray-500 rounded-full transition-all duration-300 flex items-center space-x-2 focus:outline-none hover:ring-1 hover:ring-green-500 hover:border-transparent group"
+                :class="{ 'ring-1 ring-green-500 border-transparent': isActive.memory }">
+                <CpuChipIcon class="w-5 h-5 transition-colors duration-300 text-white group-hover:text-green-500"
+                    :class="{ 'text-green-500': isActive.memory }" aria-hidden="true" />
+                <span>Memory</span>
             </button>
         </router-link>
 

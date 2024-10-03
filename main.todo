@@ -1,4 +1,13 @@
 Before Launch:
-☐ Favicon
-☐ Meta tags
-☐ Create Forks
+    ☐ Favicon
+    ☐ Meta tags
+    ✔ Create Forks @done(24-10-02 22:37)
+    ✔ Fixed revisions syncing state @done(24-10-03 18:29)
+    ☐ Bugs
+        ☐ Doesn't seem like expenses are counting toward forecast
+    ☐ Tab System
+        ☐ One tab must be active at all times
+        ☐ Add names to a tab
+        ☐ Possible split tabs??
+    ☐ Download/Restore backup as JSON file
+    ☐ Code clean up
