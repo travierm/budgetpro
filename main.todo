@@ -1,4 +1,6 @@
 Before Launch:
-☐ Favicon
-☐ Meta tags
-☐ Create Forks
+    ☐ Favicon
+    ☐ Meta tags
+    ✔ Create Forks @done(24-10-02 22:37)
+    ☐ Fixed revisions syncing state
+    ☐ Download/Restore backup as JSON file
