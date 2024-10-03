@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from './pages/MainPage.vue'
 import AboutPage from './pages/AboutPage.vue'
 import MemoryPage from './pages/MemoryPage.vue'
+import './lib/appData'
 
 const routes = [
     { path: '/', component: MainPage },

@@ -14,10 +14,7 @@
     "noEmit": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.vue"],
   "exclude": ["node_modules"]

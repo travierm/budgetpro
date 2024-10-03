@@ -1,81 +1,101 @@
-import { watch, ref } from "vue"
+import { ref, watch, computed } from "vue"
 
-const LOCAL_STORAGE_KEY = 'bp_data'
-export let CURRENT_REVISION = 0
+const LOCAL_STORAGE_KEY = 'app_state'
 
-export const getJson = (key) => {
-    const data = localStorage.getItem(key)
-    return data ? JSON.parse(data) : null
+// Helper function to get nested property using dot notation
+function getNestedProperty(obj, path) {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj)
 }
 
-export const setJson = (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value))
+// Helper function to set nested property using dot notation
+function setNestedProperty(obj, path, value) {
+    const parts = path.split('.')
+    const last = parts.pop()
+    const target = parts.reduce((acc, part) => {
+        if (!(part in acc)) {
+            acc[part] = {}
+        }
+        return acc[part]
+    }, obj)
+    target[last] = value
 }
 
-export function getAppData() {
-    const appData = getJson(LOCAL_STORAGE_KEY)
-    if (!appData) {
-        setJson(LOCAL_STORAGE_KEY, {
-            'revisions': []
-        })
+// Create a reactive state
+const state = ref(getInitialState())
 
-        return {}
-    }
-
-    return appData
+function getInitialState() {
+    const data = localStorage.getItem(LOCAL_STORAGE_KEY)
+    return data ? JSON.parse(data) : { revisions: [], CURRENT_REVISION: 0 }
 }
 
-export function getRevisionData(revisionIndex = 0) {
-    const appData = getAppData()
+function saveState() {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.value))
+}
 
-    if (!appData.revisions[revisionIndex]) {
-        appData.revisions[revisionIndex] = {}
-    }
+// Watch for changes in the state and save to localStorage
+watch(state, saveState, { deep: true })
 
-    return appData.revisions[revisionIndex]
+export function getAppState() {
+    return state
 }
 
 export function createRevision() {
-    const currentRevision = getRevisionData(CURRENT_REVISION)
-    const appData = getAppData()
+    const CURRENT_REVISION = state.value.CURRENT_REVISION ?? 0
 
-    appData.revisions.push(currentRevision)
-    replaceAppData(appData)
+    state.value.revisions.push(state.value.revisions[CURRENT_REVISION])
 }
 
-function replaceAppData(object) {
-    setJson(LOCAL_STORAGE_KEY, object)
+export function deleteRevision(index) {
+    state.value.revisions.splice(index, 1)
 }
 
-function setAppData(key, value, revisionIndex = 0) {
-    const appData = getJson(LOCAL_STORAGE_KEY)
-    if (!appData.revisions[revisionIndex]) {
-        appData.revisions[revisionIndex] = {}
-    }
-
-    appData.revisions[revisionIndex][key] = value
-    setJson(LOCAL_STORAGE_KEY, appData)
-}
-
-export function syncedRef(key, defaultValue, revision = 0) {
-    const appData = getRevisionData(revision)
-    const reference = ref()
-
-    const appDataValue = appData[key]
-    if (!appDataValue) {
-        reference.value = defaultValue
-        setAppData(key, defaultValue, revision)
-    } else {
-        reference.value = appDataValue
-    }
-
-    watch(
-        reference,
-        (newValue) => {
-            setAppData(key, newValue, revision)
+export function useReactiveState(path, defaultValue) {
+    const value = computed({
+        get: () => {
+            const result = getNestedProperty(state.value, path)
+            return result !== undefined ? result : defaultValue
         },
-        { deep: true }
-    )
+        set: (newValue) => {
+            console.log(newValue, path)
+            setNestedProperty(state.value, path, newValue)
+        }
+    })
 
-    return reference
+    return value
+}
+
+export function useReactiveRevisionState(key, defaultValue) {
+    const CURRENT_REVISION = state.value.CURRENT_REVISION ?? 0
+
+    if (!state.value.revisions[CURRENT_REVISION]) {
+        state.value.revisions[CURRENT_REVISION] = {}
+    }
+    const result = state.value.revisions[CURRENT_REVISION][key]
+    if (result === undefined) {
+        state.value.revisions[CURRENT_REVISION][key] = defaultValue
+    }
+
+    return computed({
+        get: () => {
+            const currentRevision = CURRENT_REVISION
+            if (!state.value.revisions[currentRevision]) {
+                state.value.revisions[currentRevision] = {}
+            }
+            const result = state.value.revisions[currentRevision][key]
+            if (result === undefined) {
+                state.value.revisions[currentRevision][key] = defaultValue
+            }
+
+            return result !== undefined ? result : defaultValue
+        },
+        set: (newValue) => {
+            const currentRevision = CURRENT_REVISION
+            if (!state.value.revisions[currentRevision]) {
+                state.value.revisions[currentRevision] = {}
+            }
+            state.value.revisions[currentRevision][key] = newValue
+
+            console.log(state.value)
+        }
+    })
 }

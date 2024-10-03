@@ -1,20 +1,13 @@
-import { syncedRef } from './localStorage';
+import { useReactiveRevisionState } from './localStorage';
 
-export const getRefsBySlot = (slot) => {
-    return {
-        income: syncedRef('income', [], slot),
-        expenses: syncedRef('expenses', [], slot),
-        accountBalances: syncedRef('accountBalances', [], slot)
-    }
-}
-
-export const income = syncedRef('income', [
+export const income = useReactiveRevisionState('income', [
     {
         key: 'Work',
         value: 3000
     }
 ])
-export const expenses = syncedRef('expenses', [
+
+export const expenses = useReactiveRevisionState('expenses', [
     {
         key: 'Rent',
         value: 900
@@ -28,7 +21,7 @@ export const expenses = syncedRef('expenses', [
         value: 60
     }
 ])
-export const accountBalances = syncedRef('accountBalances', [
+export const accountBalances = useReactiveRevisionState('accountBalances', [
     {
         key: 'Checking',
         value: 3000
