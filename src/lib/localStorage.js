@@ -42,8 +42,9 @@ export function getAppState() {
 export function createRevision() {
     const CURRENT_REVISION = state.value.CURRENT_REVISION ?? 0
 
+    const length = state.value.revisions.length
     const currentRevision = toRaw(state.value.revisions[CURRENT_REVISION])
-    state.value.revisions.push(JSON.parse(JSON.stringify(currentRevision)))
+    state.value.revisions.push(JSON.parse(JSON.stringify({ ...currentRevision, tabName: `Tab ${length + 1}` })))
 }
 
 export function deleteRevision(index) {
@@ -104,8 +105,6 @@ export function useReactiveRevisionState(key, defaultValue) {
                 state.value.revisions[currentRevision] = {}
             }
             state.value.revisions[currentRevision][key] = newValue
-
-            console.log('updating revision state', key, newValue, currentRevision)
         }
     })
 }

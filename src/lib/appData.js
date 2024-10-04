@@ -1,5 +1,6 @@
 import { useReactiveRevisionState } from './localStorage';
 
+export const tabName = useReactiveRevisionState('tabName', 'Tab 1')
 export const income = useReactiveRevisionState('income', [
     {
         key: 'Work',

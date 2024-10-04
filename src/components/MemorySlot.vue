@@ -3,7 +3,7 @@
         :class="{ 'border-green-500': slot === CURRENT_REVISION, 'border-dashed hover:border-solid hover:border-gray-500 hover:cursor-pointer': slot !== CURRENT_REVISION }">
 
         <div class="flex justify-between mb-4">
-            <p class="text-xl">Slot {{ slot + 1 }}</p>
+            <p class="text-xl">{{ data.tabName }}</p>
             <button v-if="slot !== CURRENT_REVISION" @click.stop="deleteRevision(slot)"
                 class="text-red-400 hover:text-red-300 transition-colors duration-200">
                 <TrashIcon class="w-5 h-5" aria-hidden="true" />
@@ -24,7 +24,7 @@
 
 <script setup>
 import { TrashIcon } from '@heroicons/vue/24/outline'
-import { currentRevision, deleteRevision, useReactiveState } from '../lib/localStorage';
+import { currentRevision, deleteRevision, useReactiveRevisionState, useReactiveState } from '../lib/localStorage';
 import { formatCurrency } from '../lib/useFormatCurrency';
 
 const props = defineProps({

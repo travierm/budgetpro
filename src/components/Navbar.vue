@@ -2,6 +2,7 @@
 import { CircleStackIcon, CpuChipIcon, InformationCircleIcon } from '@heroicons/vue/24/outline';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { useReactiveState } from '../lib/localStorage';
 
 const route = useRoute()
 
@@ -11,17 +12,19 @@ const isActive = computed(() => ({
     memory: route.path === '/memory',
     forecast: route.path === '/forecast',
 }))
+
+const revisions = useReactiveState('revisions', [])
 </script>
 
 <template>
     <div class="my-4 flex gap-2 justify-center">
-        <router-link to="/" custom v-slot="{ navigate }">
+        <router-link to="/" custom v-slot="{ navigate }" v-for="(revision, index) in revisions" :key="index">
             <button @click="navigate"
                 class="px-4 py-1 text-gray-300 bg-transparent border border-gray-500 rounded-full transition-all duration-300 flex items-center space-x-2 focus:outline-none hover:ring-1 hover:ring-indigo-500 hover:border-transparent group"
                 :class="{ 'ring-1 ring-indigo-500 border-transparent': isActive.data }">
                 <CircleStackIcon class="w-5 h-5 transition-colors duration-300 text-white group-hover:text-indigo-500"
                     :class="{ 'text-indigo-500': isActive.data }" aria-hidden="true" />
-                <span>Dashboard</span>
+                <span>{{ revision.tabName }}</span>
             </button>
         </router-link>
 
