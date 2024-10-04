@@ -1,13 +1,12 @@
-import { useReactiveRevisionState } from './localStorage';
+import { useReactiveRevisionState, } from './localStorage';
 
-export const tabName = useReactiveRevisionState('tabName', 'Tab 1')
+export const tabName = useReactiveRevisionState('tabName', 'Dashboard')
 export const income = useReactiveRevisionState('income', [
     {
         key: 'Work',
         value: 3000
     }
 ])
-
 export const expenses = useReactiveRevisionState('expenses', [
     {
         key: 'Rent',

@@ -39,11 +39,15 @@ export function getAppState() {
     return state
 }
 
-export function createRevision() {
+export function createRevision(duplicateIndex) {
     const CURRENT_REVISION = state.value.CURRENT_REVISION ?? 0
 
+    if (!duplicateIndex) {
+        duplicateIndex = CURRENT_REVISION
+    }
+
     const length = state.value.revisions.length
-    const currentRevision = toRaw(state.value.revisions[CURRENT_REVISION])
+    const currentRevision = toRaw(state.value.revisions[duplicateIndex])
     state.value.revisions.push(JSON.parse(JSON.stringify({ ...currentRevision, tabName: `Tab ${length + 1}` })))
 }
 
@@ -76,14 +80,13 @@ export function useReactiveState(path, defaultValue) {
 }
 
 export function useReactiveRevisionState(key, defaultValue) {
-    const CURRENT_REVISION = state.value.CURRENT_REVISION ?? 0
-
-    if (!state.value.revisions[CURRENT_REVISION]) {
-        state.value.revisions[CURRENT_REVISION] = {}
+    const revisionCount = state.value.revisions.length
+    if (state.value.revisions.length == 0) {
+        state.value.revisions[0] = {}
     }
-    const result = state.value.revisions[CURRENT_REVISION][key]
-    if (result === undefined) {
-        state.value.revisions[CURRENT_REVISION][key] = defaultValue
+
+    if (state.value.revisions.length == 1 && state.value.revisions[0][key] === undefined) {
+        state.value.revisions[0][key] = defaultValue
     }
 
     return computed({

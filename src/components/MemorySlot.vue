@@ -1,21 +1,10 @@
 <template>
     <div @click="setCurrentRevision(slot)"
-        class="border-2 rounded-lg p-4 border-dashed hover:border-solid hover:border-gray-500 hover:cursor-pointer">
+        class="border rounded-lg p-4 border-dashed hover:border-gray-300 hover:cursor-pointer">
 
         <div class="flex justify-between mb-4">
             <span ref="editableContent" class="text-xl focus:outline-none" :contenteditable="isEditing"
-                @blur="saveTabName" @keydown.enter.prevent="$event.target.blur()">{{ data.tabName }}</span>
-            <div class="flex space-x-2">
-                <button @click.stop="toggleEdit"
-                    class="text-blue-400 hover:text-blue-300 transition-colors duration-200">
-                    <PencilIcon v-if="!isEditing" class="w-5 h-5" aria-hidden="true" />
-                    <CheckIcon v-else class="w-5 h-5" aria-hidden="true" />
-                </button>
-                <button v-if="revisions.length >= 2" @click.stop="deleteRevision(slot)"
-                    class="text-red-400 hover:text-red-300 transition-colors duration-200">
-                    <TrashIcon class="w-5 h-5" aria-hidden="true" />
-                </button>
-            </div>
+                @blur="saveTabName">{{ data.tabName }}</span>
         </div>
 
         <p class="text-md text-white">
@@ -27,12 +16,29 @@
             <br />
             <span>Total Balance: {{ calculateTotal(data.accountBalances) }}</span>
         </p>
+
+        <div class="flex justify-center space-x-4 mt-4">
+            <button @click.stop="toggleEdit" class="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                <PencilIcon v-if="!isEditing" class="w-5 h-5" aria-hidden="true" />
+                <CheckIcon v-else class="w-5 h-5" aria-hidden="true" />
+            </button>
+
+            <button @click.stop="createRevision(slot)"
+                class="text-green-400 hover:text-green-300 transition-colors duration-200">
+                <DocumentDuplicateIcon class="w-5 h-5" aria-hidden="true" />
+            </button>
+
+            <button v-if="revisions.length >= 2" @click.stop="deleteRevision(slot)"
+                class="text-red-400 hover:text-red-300 transition-colors duration-200">
+                <TrashIcon class="w-5 h-5" aria-hidden="true" />
+            </button>
+        </div>
     </div>
 </template>
 
 <script setup>
-import { PencilIcon, TrashIcon } from '@heroicons/vue/24/outline'
-import { currentRevision, deleteRevision, useReactiveState } from '../lib/localStorage';
+import { CheckIcon, DocumentDuplicateIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/outline'
+import { currentRevision, deleteRevision, useReactiveState, createRevision } from '../lib/localStorage';
 import { formatCurrency } from '../lib/useFormatCurrency';
 import { ref } from 'vue';
 
@@ -66,6 +72,7 @@ const toggleEdit = () => {
 }
 
 const saveTabName = () => {
+    isEditing.value = false
     props.data.tabName = editableContent.value.textContent.trim()
 }
 </script>
