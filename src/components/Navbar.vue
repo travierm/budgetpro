@@ -32,8 +32,7 @@ function isActiveTab(index) {
                     <button @click="navigate"
                         class="px-4 py-1 text-gray-300 bg-transparent border border-gray-500 rounded-full transition-all duration-300 flex items-center space-x-2 focus:outline-none hover:ring-1 hover:ring-indigo-500 hover:border-transparent group"
                         :class="{ 'ring-1 ring-indigo-500 border-transparent': isActiveTab(index) }">
-                        <CircleStackIcon
-                            class="w-5 h-5 transition-colors duration-300 text-white group-hover:text-indigo-500"
+                        <CircleStackIcon class="w-5 h-5 transition-colors duration-300 group-hover:text-indigo-500"
                             :class="{ 'text-indigo-500': isActiveTab(index) }" aria-hidden="true" />
                         <span>{{ revision.tabName }}</span>
                     </button>
@@ -49,7 +48,7 @@ function isActiveTab(index) {
             <button @click="navigate"
                 class="px-4 py-1 text-gray-300 bg-transparent border border-gray-500 rounded-full transition-all duration-300 flex items-center space-x-2 focus:outline-none hover:ring-1 hover:ring-green-500 hover:border-transparent group"
                 :class="{ 'ring-1 ring-green-500 border-transparent': isActive.memory }">
-                <CpuChipIcon class="w-5 h-5 transition-colors duration-300 text-white group-hover:text-green-500"
+                <CpuChipIcon class="w-5 h-5 transition-colors duration-300  group-hover:text-green-500"
                     :class="{ 'text-green-500': isActive.memory }" aria-hidden="true" />
                 <span>Memory</span>
             </button>
@@ -59,8 +58,7 @@ function isActiveTab(index) {
             <button @click="navigate"
                 class="px-4 py-1 text-gray-300 bg-transparent border border-gray-500 rounded-full transition-all duration-300 flex items-center space-x-2 focus:outline-none hover:ring-1 hover:ring-blue-500 hover:border-transparent group"
                 :class="{ 'ring-1 ring-blue-500 border-transparent': isActive.about }">
-                <InformationCircleIcon
-                    class="w-5 h-5 transition-colors duration-300 text-white group-hover:text-blue-500"
+                <InformationCircleIcon class="w-5 h-5 transition-colors duration-300  group-hover:text-blue-500"
                     :class="{ 'text-blue-500': isActive.about }" aria-hidden="true" />
                 <span>About</span>
             </button>

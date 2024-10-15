@@ -1,5 +1,6 @@
-import { useReactiveRevisionState, } from './localStorage';
+import { checkAppDataVersion, useReactiveRevisionState } from './localStorage';
 
+export const APP_DATA_VERSION = checkAppDataVersion()
 export const tabName = useReactiveRevisionState('tabName', 'Dashboard')
 export const income = useReactiveRevisionState('income', [
     {

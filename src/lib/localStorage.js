@@ -2,6 +2,8 @@ import { ref, watch, computed, toRaw } from "vue"
 
 const LOCAL_STORAGE_KEY = 'app_state'
 
+
+
 // Helper function to get nested property using dot notation
 function getNestedProperty(obj, path) {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj)
@@ -22,6 +24,15 @@ function setNestedProperty(obj, path, value) {
 
 // Create a reactive state
 const state = ref(getInitialState())
+
+export function checkAppDataVersion() {
+    getNestedProperty(state.value, 'APP_DATA_VERSION')
+    if (state.value.APP_DATA_VERSION === undefined) {
+        state.value.APP_DATA_VERSION = 1
+    }
+
+    return state.value.APP_DATA_VERSION
+}
 
 function getInitialState() {
     const data = localStorage.getItem(LOCAL_STORAGE_KEY)
@@ -71,7 +82,6 @@ export function useReactiveState(path, defaultValue) {
             return result !== undefined ? result : defaultValue
         },
         set: (newValue) => {
-            console.log(newValue, path)
             setNestedProperty(state.value, path, newValue)
         }
     })
