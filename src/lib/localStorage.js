@@ -2,8 +2,6 @@ import { ref, watch, computed, toRaw } from "vue"
 
 const LOCAL_STORAGE_KEY = 'app_state'
 
-
-
 // Helper function to get nested property using dot notation
 function getNestedProperty(obj, path) {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj)
@@ -45,6 +43,12 @@ function saveState() {
 
 // Watch for changes in the state and save to localStorage
 watch(state, saveState, { deep: true })
+
+export function clearAppState() {
+    localStorage.removeItem(LOCAL_STORAGE_KEY)
+
+    window.location.reload()
+}
 
 export function getAppState() {
     return state
@@ -90,7 +94,6 @@ export function useReactiveState(path, defaultValue) {
 }
 
 export function useReactiveRevisionState(key, defaultValue) {
-    const revisionCount = state.value.revisions.length
     if (state.value.revisions.length == 0) {
         state.value.revisions[0] = {}
     }
