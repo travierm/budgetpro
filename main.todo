@@ -1,15 +1,17 @@
 Before Launch:
-    ☐ Favicon
-    ✔ Better Title @done(24-10-16 11:38)
-    ☐ Meta tags
-    ✔ Create Forks @done(24-10-02 22:37)
-    ✔ Fixed revisions syncing state @done(24-10-03 18:29)
-    ☐ Bugs
-        ✔ Doesn't seem like expenses are counting toward forecast @started(24-10-15 15:38) @done(24-10-15 17:18) @lasted(1h40m16s)
-    ✔ Tab System @done(24-10-15 17:18)
-        ✔ One tab must be active at all times @done(24-10-15 17:18)
-        ✔ Add names to a tab @done(24-10-15 17:18)
-        ✔ Possible split tabs?? @done(24-10-15 17:18)
-    ✔ Download/Restore backup as JSON file @done(24-10-16 11:38)
     ☐ Stat tracker and footer
     ☐ Code clean up
+    
+Archive:
+  ✔ Favicon @done(24-10-16 21:56) @project(Before Launch)
+  ✔ Better Title @done(24-10-16 11:38) @project(Before Launch)
+  ✔ Meta tags @done(24-10-16 21:56) @project(Before Launch)
+  ✔ Create Forks @done(24-10-02 22:37) @project(Before Launch)
+  ✔ Fixed revisions syncing state @done(24-10-03 18:29) @project(Before Launch)
+  ✔ Bugs @done(24-10-16 22:01) @project(Before Launch)
+  ✔ Doesn't seem like expenses are counting toward forecast @started(24-10-15 15:38) @done(24-10-15 17:18) @lasted(1h40m16s) @project(Before Launch)
+  ✔ Tab System @done(24-10-15 17:18) @project(Before Launch)
+  ✔ One tab must be active at all times @done(24-10-15 17:18) @project(Before Launch)
+  ✔ Add names to a tab @done(24-10-15 17:18) @project(Before Launch)
+  ✔ Possible split tabs?? @done(24-10-15 17:18) @project(Before Launch)
+  ✔ Download/Restore backup as JSON file @done(24-10-16 11:38) @project(Before Launch)
