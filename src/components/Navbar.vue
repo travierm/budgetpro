@@ -25,7 +25,7 @@ function isActiveTab(index) {
 </script>
 
 <template>
-    <div class="my-4 flex gap-2 justify-center">
+    <div class="my-6 flex gap-2 justify-center">
         <div class="flex space-x-2 ">
             <div class="relative" v-for="(revision, index) in revisions" :key="index">
                 <router-link :to="`/${index === 0 ? '' : index}`" custom v-slot="{ navigate }">

@@ -1,7 +1,22 @@
 <template>
     <div>
+
         <div class="flex gap-4 px-4 text-white justify-center">
             <MemorySlot v-for="(revision, index) in revisions" :key="index" :data="revision" :slot="index" />
+        </div>
+
+        <div class="flex flex-col  mt-4 text-white text-md">
+            <div class="flex justify-center items-center gap-x-2">
+                <p>Click</p>
+                <PencilIcon class="text-blue-400 w-5 h-5" />
+                <p> to rename a memory slot</p>
+            </div>
+
+            <div class="flex justify-center items-center gap-x-2">
+                <p>Click</p>
+                <DocumentDuplicateIcon class="text-green-400 w-5 h-5" />
+                <p> to duplicate a memory slot</p>
+            </div>
         </div>
 
         <div class="flex justify-center mt-4 gap-x-2">
@@ -34,7 +49,7 @@
 import { ref } from 'vue';
 import { getAppState, useReactiveState, clearAppState } from '../lib/localStorage';
 import MemorySlot from '../components/MemorySlot.vue';
-import { CloudArrowDownIcon, CloudArrowUpIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import { CloudArrowDownIcon, CloudArrowUpIcon, TrashIcon, PencilIcon, DocumentDuplicateIcon } from '@heroicons/vue/24/outline';
 
 const revisions = useReactiveState('revisions', [])
 
