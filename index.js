@@ -2,10 +2,8 @@ import { Hono } from 'hono'
 import { getConnInfo } from 'hono/bun'
 import { Database } from "bun:sqlite";
 
-const PORT = process.env.PORT || 8080;
-const app = new Hono({
-    port: PORT,
-})
+const PORT = 3000;
+const app = new Hono()
 
 const db = new Database("./db/db.sqlite", { create: true });
 await db.exec(`CREATE TABLE IF NOT EXISTS requests (
@@ -19,6 +17,12 @@ function createRequest(ipAddress) {
         $value: ipAddress
     });
 }
+
+app.get('/health', async (c) => {
+    return new Response('OK', {
+        status: 200,
+    })
+})
 
 app.get('/favicon.svg', async (c) => {
     return new Response(await Bun.file(`./dist/favicon.svg`).bytes(), {
@@ -54,5 +58,9 @@ app.get('/', async (c) => {
 })
 
 console.log(`BudgetPro server started http://localhost:${PORT}`);
+console.log('HELLO KAMAL PLEASE WORK')
 
-export default app;
+export default {
+    port: PORT,
+    fetch: app.fetch,
+} 

@@ -33,8 +33,13 @@ COPY --from=prerelease /usr/src/app/package.json .
 COPY --from=prerelease /usr/src/app/dist/ dist/.
 
 RUN mkdir -p db && chown -R bun:bun db && chmod 777 db
+RUN apt-get update && apt-get install -y curl
 
 # run the app
 USER bun
 EXPOSE 3000/tcp
-ENTRYPOINT [ "bun", "run", "index.js" ]
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/health || exit 1
+
+ENTRYPOINT [ "bun",  "index.js" ]
