@@ -12,9 +12,6 @@
             </p>
 
             <br />
-            <p>We don't track any actions you make, we don't run analytics and we won't run ads.</p>
-
-            <br />
             <p>This software is completely open source: <a class="text-blue-400" target="_blank"
                     href="https://github.com/travierm/budgetpro">BudgetPro</a></p>
             <br />
