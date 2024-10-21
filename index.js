@@ -3,7 +3,7 @@ import { Hono } from 'hono'
 const PORT = 3000;
 const app = new Hono()
 
-app.get('/health', async (c) => {
+app.get('/up', async (c) => {
     return new Response('OK', {
         status: 200,
     })
