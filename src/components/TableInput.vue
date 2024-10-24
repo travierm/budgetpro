@@ -20,7 +20,7 @@
                 <tbody>
                     <tr v-for="(row, index) in modelValue" :key="index" class="bg-gray-900 border-b border-gray-700">
                         <td class="px-4 py-2">
-                            <input v-model="row.key" type="text"
+                            <input :ref="`input_${index}`" v-model="row.key" type="text"
                                 class="bg-transparent text-gray-300 text-sm focus:ring-blue-500 focus:outline-none block w-full px-0 dark:placeholder-gray-500"
                                 :placeholder="keyText">
                         </td>
@@ -142,6 +142,13 @@ export default {
                 ...this.modelValue,
                 { key: '', value: '' }
             ])
+
+            this.$nextTick(() => {
+                const input = this.$refs[`input_${this.modelValue.length - 1}`][0]
+                if (input) {
+                    input.focus()
+                }
+            })
         },
         deleteRow(index) {
             this.$emit('update:modelValue', this.modelValue.filter((_, i) => i !== index))

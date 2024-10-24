@@ -1,7 +1,6 @@
 <template>
     <div class="bg-gray-800 shadow-lg rounded-lg p-4">
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
-
             <div class="flex flex-col items-center">
                 <div class="text-md md:text-xl font-extrabold gradient-text-profit">
                     ${{ netProfit.toFixed(2) }}
@@ -20,8 +19,8 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="text-md md:text-xl font-extrabold gradient-text-runway">
-                    {{ financialRunway }} Months
+                <div class="text-md md:text-xl font-extrabold text-nowrap gradient-text-runway">
+                    {{ financialRunway }}
                 </div>
                 <div class="text-base font-medium text-gray-200 mt-1">
                     Of Runway
@@ -69,7 +68,22 @@ export default {
         const financialRunway = computed(() => {
             const runwayMonths = calculateFinancialRunway(accountBalances.value, expenses.value);
 
-            return runwayMonths.toFixed(1); // Round to one decimal place
+            if (runwayMonths === Infinity) {
+                return "∞";
+            }
+
+            // If 12 months or less, just show months
+            if (runwayMonths <= 12) {
+                return `${Math.round(runwayMonths)} Months`;
+            }
+
+            const years = Math.floor(runwayMonths / 12);
+            const months = Math.round(runwayMonths % 12);
+
+            const yearText = `${years} Years`;
+            const monthText = `${months} Months`;
+
+            return `${yearText} ${monthText}`;
         });
 
         return {
