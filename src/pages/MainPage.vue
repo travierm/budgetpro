@@ -10,8 +10,8 @@ import { income, expenses, accountBalances } from '../lib/appData';
     <div class="flex gap-4 flex-col xl:flex-row">
         <div class="flex flex-col gap-4 xl:w-1/2">
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <TableInput v-model="income" name="Monthly Income" class="flex-grow" gradient-from="from-green-600"
-                    gradient-to="to-green-800" />
+                <TableInput v-model="income" value-text="Net Income" name="Monthly Income" class="flex-grow"
+                    gradient-from="from-green-600" gradient-to="to-green-800" />
                 <TableInput v-model="accountBalances" name="Account Balances" class="flex-grow"
                     gradient-from="from-indigo-600" gradient-to="to-indigo-800" key-text="Account"
                     value-text="Balance" />
