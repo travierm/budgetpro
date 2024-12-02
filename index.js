@@ -16,6 +16,14 @@ app.get('/favicon.svg', async (c) => {
         },
     })
 })
+
+app.get('/budgetpro.png', async (c) => {
+    return new Response(await Bun.file(`./dist/budgetpro.png`).bytes(), {
+        headers: {
+            "Content-Type": "image/png",
+        },
+    })
+})
 app.get('/assets/*.js', async (c) => {
     return new Response(await Bun.file(`./dist/${c.req.path}`).bytes(), {
         headers: {
