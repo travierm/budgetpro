@@ -48,6 +48,14 @@ app.get('/', async (c) => {
     })
 })
 
+app.get('*', async (c) => {
+    return new Response(await Bun.file("./dist/index.html").bytes(), {
+        headers: {
+            "Content-Type": "text/html",
+        },
+    })
+})
+
 console.log(`BudgetPro server started http://localhost:${PORT}`);
 
 export default {
