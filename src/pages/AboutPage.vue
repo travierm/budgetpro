@@ -15,7 +15,7 @@
             <p>This software is completely open source: <a class="text-blue-400" target="_blank"
                     href="https://github.com/travierm/budgetpro">BudgetPro</a></p>
             <br />
-            <p class="">Designed and build by <a target="_blank" class="text-blue-400"
+            <p class="">Designed and built by <a target="_blank" class="text-blue-400"
                     href="https://tecdrip.com">Tecdrip</a></p>
         </div>
     </div>
