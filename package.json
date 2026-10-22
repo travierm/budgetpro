@@ -16,7 +16,7 @@
     "@hono/node-server": "^2.1.5",
     "hono": "^4.13.13",
     "vue": "^3.5.44",
-    "vue-router": "^4.6.4"
+    "vue-router": "^5.4.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
