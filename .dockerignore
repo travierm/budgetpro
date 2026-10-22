@@ -1,0 +1,14 @@
+.git
+.github
+.kamal
+.env
+.env.*
+*.local
+node_modules
+dist
+db
+coverage
+*.log
+.DS_Store
+.bundle
+vendor

@@ -3,7 +3,7 @@
         class="border rounded-lg p-4 border-dashed hover:border-gray-300 hover:cursor-pointer">
 
         <div class="flex justify-between mb-4">
-            <span ref="editableContent" class="text-xl focus:outline-none" :contenteditable="isEditing"
+            <span ref="editableContent" class="text-xl focus:outline-hidden" :contenteditable="isEditing"
                 @blur="saveTabName">{{ data.tabName }}</span>
         </div>
 

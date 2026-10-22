@@ -1,7 +1,7 @@
 <template>
     <div class="relative shadow-md sm:rounded-lg overflow-hidden">
         <div
-            :class="`bg-gradient-to-r p-2 ${gradientFrom} ${gradientTo} rounded-t-lg flex justify-between items-center`">
+            :class="`bg-linear-to-r p-2 ${gradientFrom} ${gradientTo} rounded-t-lg flex justify-between items-center`">
             <h1 class="text-md font-bold text-slate-200">{{ name }}</h1>
             <button @click="addRow" class="text-white hover:text-green-400 transition-colors duration-200 mr-[5px]">
                 <PlusCircleIcon class="w-6 h-6" aria-hidden="true" />
@@ -21,7 +21,7 @@
                     <tr v-for="(row, index) in modelValue" :key="index" class="bg-gray-900 border-b border-gray-700">
                         <td class="px-4 py-2">
                             <input :ref="`input_${index}`" v-model="row.key" type="text"
-                                class="bg-transparent text-gray-300 text-sm focus:ring-blue-500 focus:outline-none block w-full px-0 dark:placeholder-gray-500"
+                                class="bg-transparent text-gray-300 text-sm focus:ring-blue-500 focus:outline-hidden block w-full px-0 dark:placeholder-gray-500"
                                 :placeholder="keyText">
                         </td>
                         <td class="px-4 py-2">
@@ -39,13 +39,13 @@
             <div v-if="isScrollable && !isAtBottom"
                 class="absolute bottom-0 left-0 right-0 flex justify-center items-center pointer-events-none"
                 :style="{ opacity: scrollIndicatorOpacity }">
-                <div class="w-full h-12 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                <div class="w-full h-12 bg-linear-to-t from-gray-900 to-transparent"></div>
                 <div class="absolute bottom-2 animate-bounce">
                     <ChevronDownIcon class="w-6 h-6 text-blue-400" />
                 </div>
             </div>
         </div>
-        <div v-if="modelValue.length > 0" :class="`bg-gradient-to-r p-2 ${gradientFrom} ${gradientTo} rounded-b-lg`">
+        <div v-if="modelValue.length > 0" :class="`bg-linear-to-r p-2 ${gradientFrom} ${gradientTo} rounded-b-lg`">
             <div class="flex justify-between text-xs font-semibold text-white">
                 <span>Total</span>
                 <span>{{ formatCurrency(total) }}</span>

@@ -1,64 +1,14 @@
-import { Hono } from 'hono'
+import { serve } from '@hono/node-server'
+import app from './app.js'
 
-const PORT = 3000;
-const app = new Hono()
-
-app.get('/up', async (c) => {
-    return new Response('OK', {
-        status: 200,
-    })
+const port = Number(process.env.PORT || 3000)
+const server = serve({ fetch: app.fetch, hostname: '0.0.0.0', port }, () => {
+  console.log(`BudgetPro listening on port ${port}`)
 })
 
-app.get('/favicon.svg', async (c) => {
-    return new Response(await Bun.file(`./dist/favicon.svg`).bytes(), {
-        headers: {
-            "Content-Type": "image/svg+xml",
-        },
-    })
-})
-
-app.get('/budgetpro.png', async (c) => {
-    return new Response(await Bun.file(`./dist/budgetpro.png`).bytes(), {
-        headers: {
-            "Content-Type": "image/png",
-        },
-    })
-})
-app.get('/assets/*.js', async (c) => {
-    return new Response(await Bun.file(`./dist/${c.req.path}`).bytes(), {
-        headers: {
-            "Content-Type": "application/javascript",
-        },
-    })
-})
-
-app.get('/assets/*.css', async (c) => {
-    return new Response(await Bun.file(`./dist/${c.req.path}`).bytes(), {
-        headers: {
-            "Content-Type": "text/css",
-        },
-    })
-})
-
-app.get('/', async (c) => {
-    return new Response(await Bun.file("./dist/index.html").bytes(), {
-        headers: {
-            "Content-Type": "text/html",
-        },
-    })
-})
-
-app.get('*', async (c) => {
-    return new Response(await Bun.file("./dist/index.html").bytes(), {
-        headers: {
-            "Content-Type": "text/html",
-        },
-    })
-})
-
-console.log(`BudgetPro server started http://localhost:${PORT}`);
-
-export default {
-    port: PORT,
-    fetch: app.fetch,
-} 
+for (const signal of ['SIGINT', 'SIGTERM']) {
+  process.once(signal, () => {
+    server.close((error) => process.exit(error ? 1 : 0))
+    setTimeout(() => process.exit(1), 10_000).unref()
+  })
+}

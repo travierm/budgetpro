@@ -1,6 +1,6 @@
 <template>
     <input :value="formattedValue" @input="updateValue" @blur="formatOnBlur" @focus="selectAll" type="text"
-        class="bg-transparent text-gray-300 text-sm focus:ring-blue-500 focus:outline-none block w-full px-0 dark:placeholder-gray-500"
+        class="bg-transparent text-gray-300 text-sm focus:ring-blue-500 focus:outline-hidden block w-full px-0 dark:placeholder-gray-500"
         :placeholder="valueText">
 </template>
 

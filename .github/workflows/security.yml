@@ -1,0 +1,43 @@
+name: Build and security
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 12 * * 1'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm install --global npm@12.2.1
+      - run: npm ci
+      - run: npm run audit
+      - run: npm run build
+      - run: npm test
+      - run: docker build --pull --platform linux/amd64 -t budgetpro:security-check .
+      - name: Scan container OS and application dependencies
+        run: >-
+          docker run --rm
+          -v /var/run/docker.sock:/var/run/docker.sock
+          aquasec/trivy:0.76.1 image --scanners vuln
+          --exit-code 1 budgetpro:security-check
+  deployment-tooling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ruby/setup-ruby@b1da4809b005e0178fe08a1d57317bffc00b7b4c # v1
+        with:
+          ruby-version: '4.0'
+          bundler-cache: true
+      - run: bundle exec bundler-audit check --update
+      - name: Validate Kamal configuration
+        env:
+          KAMAL_REGISTRY_PASSWORD: configuration-check-only
+        run: bundle exec kamal config > /dev/null

@@ -24,3 +24,9 @@ dist-ssr
 *.sw?
 db/db.sqlite
 .env
+
+# Local Ruby dependencies and deployment credentials
+.bundle
+vendor/bundle
+.kamal/secrets.*
+!.kamal/secrets.example

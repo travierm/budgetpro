@@ -62,26 +62,26 @@ const formatCurrency = (value) => {
 const getMonthGradient = (month) => {
     const gradients = {
         // Winter (cool blues and cyans)
-        'Dec': 'bg-gradient-to-br from-sky-500 to-blue-600',
-        'Jan': 'bg-gradient-to-br from-cyan-600 to-blue-700',
-        'Feb': 'bg-gradient-to-br from-blue-500 to-cyan-600',
+        'Dec': 'bg-linear-to-br from-sky-500 to-blue-600',
+        'Jan': 'bg-linear-to-br from-cyan-600 to-blue-700',
+        'Feb': 'bg-linear-to-br from-blue-500 to-cyan-600',
 
         // Spring (fresh greens and teals)
-        'Mar': 'bg-gradient-to-br from-emerald-500 to-teal-600',
-        'Apr': 'bg-gradient-to-br from-green-500 to-teal-600',
-        'May': 'bg-gradient-to-br from-lime-500 to-green-600',
+        'Mar': 'bg-linear-to-br from-emerald-500 to-teal-600',
+        'Apr': 'bg-linear-to-br from-green-500 to-teal-600',
+        'May': 'bg-linear-to-br from-lime-500 to-green-600',
 
         // Summer (vibrant blues and greens)
-        'Jun': 'bg-gradient-to-br from-green-400 to-teal-500',
-        'Jul': 'bg-gradient-to-br from-sky-400 to-blue-500',
-        'Aug': 'bg-gradient-to-br from-blue-400 to-indigo-500',
+        'Jun': 'bg-linear-to-br from-green-400 to-teal-500',
+        'Jul': 'bg-linear-to-br from-sky-400 to-blue-500',
+        'Aug': 'bg-linear-to-br from-blue-400 to-indigo-500',
 
         // Fall (warm reds, oranges, and golds)
-        'Sep': 'bg-gradient-to-br from-yellow-500 to-orange-600',
-        'Oct': 'bg-gradient-to-br from-orange-500 to-red-600',
-        'Nov': 'bg-gradient-to-br from-amber-500 to-rose-500'
+        'Sep': 'bg-linear-to-br from-yellow-500 to-orange-600',
+        'Oct': 'bg-linear-to-br from-orange-500 to-red-600',
+        'Nov': 'bg-linear-to-br from-amber-500 to-rose-500'
     };
-    return gradients[month] || 'bg-gradient-to-br from-gray-600 to-gray-700';
+    return gradients[month] || 'bg-linear-to-br from-gray-600 to-gray-700';
 };
 
 const monthsWithYears = getNextMonthsWithYears(9);

@@ -1,45 +1,29 @@
-# use the official Bun image
-# see all versions at https://hub.docker.com/r/oven/bun/tags
-FROM oven/bun:1 AS base
-WORKDIR /usr/src/app
+FROM node:24.22.1-alpine3.24 AS base
+WORKDIR /app
 
-# install dependencies into temp directory
-# this will cache them and speed up future builds
-FROM base AS install
-RUN mkdir -p /temp/dev
-COPY package.json bun.lockb /temp/dev/
-RUN cd /temp/dev && bun install --frozen-lockfile
+FROM base AS build
+RUN npm install --global npm@12.2.1
+COPY package.json package-lock.json .npmrc ./
+RUN npm ci
+COPY index.html vite.config.js ./
+COPY src ./src
+COPY public ./public
+RUN npm run build
 
-# install with --production (exclude devDependencies)
-RUN mkdir -p /temp/prod
-COPY package.json bun.lockb /temp/prod/
-RUN cd /temp/prod && bun install --frozen-lockfile --production
+FROM base AS dependencies
+RUN npm install --global npm@12.2.1
+COPY package.json package-lock.json .npmrc ./
+RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
 
-# copy node_modules from temp directory
-# then copy all (non-ignored) project files into the image
-FROM base AS prerelease
-COPY --from=install /temp/dev/node_modules node_modules
-COPY . .
-
-# [optional] tests & build
-ENV NODE_ENV=production
-RUN bun run build
-
-# copy production dependencies and source code into final image
 FROM base AS release
-COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/index.js .
-COPY --from=prerelease /usr/src/app/package.json .
-COPY --from=prerelease /usr/src/app/dist/ dist/.
-
-RUN mkdir -p db && chown -R bun:bun db && chmod 777 db
-RUN apt-get update && apt-get install -y curl
-
-# run the app
-USER bun
-EXPOSE 3000/tcp
-
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000/health || exit 1
-
-ENTRYPOINT [ "bun",  "index.js" ]
+# The runtime only needs Node; omit package managers and their dependency trees.
+RUN rm -rf /usr/local/lib/node_modules /opt/yarn-* /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/yarn /usr/local/bin/yarnpkg
+ENV NODE_ENV=production PORT=3000
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY package.json app.js index.js ./
+COPY --from=build /app/dist ./dist
+USER node
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:3000/up').then(r => { if (r.status !== 200) process.exit(1) }).catch(() => process.exit(1))"
+CMD ["node", "index.js"]
