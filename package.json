@@ -15,7 +15,7 @@
     "@heroicons/vue": "^2.2.0",
     "@hono/node-server": "^2.1.5",
     "hono": "^4.13.13",
-    "vue": "^3.5.44",
+    "vue": "^3.5.45",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
